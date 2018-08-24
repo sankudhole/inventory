@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% block head%}
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+{% endblock %}
+<body>
+	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+	  	<div class="container-fluid">
+		    <div class="navbar-header">
+		      	<a class="navbar-brand" href="{% url "imsys:home"%}" style="color: white; font-family: Bungee Inline;font-size: 3vw; top:100%; transform:translateY(10%);">Inventory</a>
+		    </div>
+				
+		    <div class="collapse navbar-collapse" id="collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+
+					<li>
+
+			            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="top: 50%;text-transform:capitalize;color:white;transform: translateY(10%);">
+										{{username}}
+										<span class="caret"></span>
+			            </a>
+			            <ul class="dropdown-menu">
+			              <li><a href="{% url "imsys:editprofile"%}">Edit Profile</a></li>
+			              <li><a href="{% url "imsys:logout"%}">Logout</a></li>
+			            </ul>
+
+			        </li>
+
+			        <li>
+			        	<a href="{% url 'imsys:dashboard'%}"><button class="btn btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
+			        </li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	{% block other%}
+	{% endblock %}
+</body>
+</html>

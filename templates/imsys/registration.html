@@ -1,0 +1,35 @@
+<!--Registration  page - inventory management system-->
+<!DOCTYPE html>
+{% load static%}
+<html>
+<head>
+	<title>Registration Form </title>
+	<link rel="stylesheet" type="text/css" href="{% static "css/reg.css"%}">
+
+</head>
+<body style="background:url({%static "photos/pic1.jpg"%})">
+ <div class="loginbox">
+   <h1>Sign UP</h1>
+   <p> &nbsp; &nbsp; Please Fill up to Create Account</p>
+   <br>
+   <form action="{% url 'imsys:register'%}" method="POST">
+		 {% csrf_token %}
+   	<p>Firstname</p>
+   	<input type="text" name="first_name" placeholder="Enter Firstname">
+   	<p>Lastname</p>
+   	<input type="text" name="last_name" placeholder="Enter Lastname">
+   	<p>Username</p>
+   	<input type="text" name="username" placeholder="Enter Username">
+   	<p>Email</p>
+   	<input type="text" name="email" placeholder="Enter Email">
+   	<p>Password</p>
+   	<input type="password" name="password" placeholder="Enter Password">
+   	<p>Repeat Password</p>
+   	<input type="password" name="" placeholder="Repeat Password">
+    <input type="submit" name="" value="SIGN UP">
+
+   </form>
+	 <a href="{% url "imsys:home"%}">Alreay have an account?</a>
+ </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!-- login page - inventory management system-->
+<!DOCTYPE html>
+<html>
+<head>
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+	{% load static%}
+	<title>Login Form </title>
+	<link rel="stylesheet" type="text/css" href="{% static "css/login.css"%}">
+
+</head>
+<body style="background:url({% static "photos/pic1.jpg"%})">
+ <div class="loginbox">
+   <img src="{% static "photos/login.png"%}" class="avatar">
+   <h1>Login Here</h1>
+   <form action="{% url 'imsys:home'%}" method="POST">
+		 {% csrf_token %}
+		 <input type="text" name="type" value="login" style="display:none;">
+   	<p>Username</p>
+   	<input type="text" name="username" placeholder="Enter Username">
+   	<p>Password</p>
+   	<input type="password" name="password" placeholder="Enter Password">
+   	<input type="submit" name="" value="Login">
+   	<a id='reg' href="{% url 'imsys:register'%}">Don't have an account?</a>
+   </form>
+ </div>
+</body>
+</html>

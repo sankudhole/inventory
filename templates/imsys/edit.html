@@ -1,0 +1,109 @@
+{% extends 'imsys/navbar.html'%}
+{% block head%}
+<html>
+<head>
+  <title>Profile Form</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    function changepasswords(){
+      $(".profile").hide();
+      $(".password").show();
+    }
+    function changeprofiles(){
+      $('.password').hide();
+      $('.profile').show();
+    }
+  </script>
+</head>
+{% endblock %}
+<body>
+{% block other%}
+<div class="container">
+    <h1>Edit Profile</h1>
+  	<hr>
+	<div class="row">
+
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+
+        <h3>Personal info</h3>
+
+
+        <form class="form-horizontal profile" role="form" action="{% url 'imsys:editprofile' %}" method="POST">
+          {% csrf_token %}
+          <input type="text" name="type" value="profiles" style="display:none;">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">First name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" value="{{user.first_name}}" type="text" name="first_name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Last name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" value="{{user.last_name}}" type="text" name="last_name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input class="form-control" value="{{user.email}}" type="text" name="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Username:</label>
+            <div class="col-md-8">
+              <input class="form-control" value="{{user.username}}" type="text" name="username">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input class="btn btn-primary" value="Save Changes" type="submit">
+              <input class="btn btn-default" value="Cancel" type="reset">
+              <input type="button" name="changepassword" value="Change Password" class="btn btn-info" onclick="changepasswords()">
+            </div>
+          </div>
+        </form>
+        <form class="form-horizontal password" action="{% url 'imsys:editprofile'%}" method="post" style="display:none">
+          {% csrf_token %}
+          <input type="text" name="type" value="passwords" style="display:none;">
+          <div class="form-group">
+            <label class="col-md-3 control-label">Enter Old Password:</label>
+            <div class="col-md-8">
+              <input class="form-control" value="" type="password" name="password1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">New Password:</label>
+            <div class="col-md-8">
+              <input class="form-control" value="" type="password" name="newpassword">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Confirm password:</label>
+            <div class="col-md-8">
+              <input class="form-control" value="" type="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input class="btn btn-primary" value="Save Changes" type="submit">
+              <input class="btn btn-default" value="Cancel" type="reset">
+              <input type="button" name="changeprofile" value="Change Profile" class="btn btn-info" onclick="changeprofiles()">
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+<hr>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+{% extends 'imsys/navbar.html' %}
+{% block head %}
+<html lang="en" dir="ltr">
+<head>
+	<title>purchase order</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+{% endblock %}
+<body>
+	{% block other %}
+	<div class="container" style="margin-top:70px;">
+		<div class="row">
+			<form class="form-control" style="padding:5px 10px; height:auto;">
+				<div class="input-group col-md-12">
+					<label class="col-md-2" for="vendor">Vendor Name</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="vendor" name="vendor_name">
+					</div>
+				</div>
+				<br>
+				<div class="input-group col-md-12">
+					<label class="col-md-2">Delivered By</label>
+					<div class="col-md-8">
+						<label><input type="radio" id="rad1" name="rad">Organization</label>
+						<label><input type="radio" id="rad2" name="rad" style="margin-left: 30px;">Customer</label>
+						<input type="text" class="form-control" id="org" placeholder="Enter Name of Organization" style="display: none;" name="customer_type">
+						<input type="text" class="form-control" id="cus" placeholder="Enter Customer Details" style="display: none;">
+					</div>
+				</div>
+
+					<script>
+						$(document).ready(function () {
+							$('#rad1').click(function () {
+							        $('#cus').hide('fast');
+							        $('#org').show('fast');
+							    });
+							$('#rad2').click(function () {
+							        $('#org').hide('fast');
+							        $('#cus').show('fast');
+							    });
+						});
+					</script>
+
+				<br>
+				<div class="input-group col-md-12">
+					<label class="col-md-2" for="purchase">Purchase Order</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="vendor" name="purchase_order_no">
+					</div>
+				</div>
+				<br>
+				<div class="input-group col-md-12">
+					<label class="col-md-2" for="billDate">Date</label>
+					<div class="col-md-4">
+						<input id="billDate" placeholder="DD/MM/YYYY" class="form-control" type="date" name="purchase_date">
+					</div>
+					<label class="col-md-2" for="dueDate">Expected Shipment Date</label>
+					<div class="col-md-4">
+						<input id="dueDate" placeholder="DD/MM/YYYY" class="form-control" type="date" name="delivery_date">
+					</div>
+				</div>
+				<hr>
+
+				<br>
+				<input type="number" name="itemno" id="itemno" style="display: none;" value="1">
+				<table class="table-bordered table table-hover">
+					<tr>
+						<th>Items & Description</th>
+						<th>Account</th>
+						<th>Quantity</th>
+						<th>Rate</th>
+						<th>Amount</th>
+					</tr>
+
+					<tr>
+						<td><textarea id="description" placeholder="Type or click to select an item" class="ember-text-area form-control item-description ember-view" name="item_info"></textarea></td>
+
+						<td><textarea id="description" placeholder="Enter Type of Account" class="ember-text-area form-control item-description ember-view" name="account_type"></textarea></td>
+
+						<td><input type="number" id="a" placeholder="Enter Quantity" class="ember-text-area form-control item-description ember-view" onchange= "total()" name="quantity"></input></td>
+
+						<td><input type="number" id="s" placeholder="Enter Rate of Item" class="ember-text-area form-control item-description ember-view" onchange="total()" name="rate"></input></td>
+
+						<td><input type="number" id="k" placeholder="Total Amount of Items" class="ember-text-area form-control item-description ember-view" name="amount"></input></td>
+
+					</tr>
+				</table>
+
+				<div class="row">
+					<div class="col-md-6">
+						<a onclick="AddNewLine()">+ Add another line</a>
+					</div>
+					<div class="col-md-6">
+						<hr>
+						<div class="input-group col-md-12">
+							<label class="col-md-6" for="sub">Sub Total</label>
+							<div class="col-md-6">
+								<input type="number" class="form-control" id="sub" name="sub_total">
+							</div>
+						</div>
+						<hr>
+						<div class="input-group col-md-12">
+							<label class="col-md-6" for="discount">Discount</label>
+							<div class="col-md-6">
+								<input type="number" class="form-control" id="discount" placeholder="in %" onchange ="total()" name="discount">
+							</div>
+						</div>
+						<hr>
+						<div class="input-group col-md-12">
+							<label class="col-md-6" for="final" style="color: #047009;">Final Total</label>
+							<div class="col-md-6">
+								<input type="number" class="form-control" id="final" name="final_total">
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-6">
+						<label class="btn" for="updfile">Upload a File
+							<input id="updfile" type="file" hidden name="attachedfiles">
+						</label>
+						<p style="color: red;">**You can upload a maximum of 5MB size.</p>
+					</div>
+					<div class="col-md-6">
+						<label for="notes">Customer Notes</label><br>
+						<textarea id="notes" rows="3" cols="50" class="form-control" name="customer_note"></textarea>
+						<br>
+						<br>
+						<label for="notes">Terms & Conditions</label><br>
+						<textarea id="notes" rows="5" cols="50" class="form-control" name="terms_and_conditions"></textarea>
+					</div>
+				</div>
+				<hr>
+				<input class="btn btn-success" type="submit" value="Save">
+				<button class="btn btn-danger">Cancle</button>
+			</form>
+		</div>
+			<script>
+			var colum = 1
+			var total = function(){
+				console.log("In function")
+				var rate = $('#s').val();
+				console.log(rate);
+				var Quantity = $('#a').val();
+				var discount = $('#discount').val();
+				console.log(Quantity)
+				var tot ;
+				tot = rate * Quantity;
+				var lastot = tot - (discount* tot)/100
+				console.log(tot);
+				$('#k').val(tot);
+				$('#sub').val(tot);
+				$('#final').val(lastot);
+				console.log(lastot);
+			}
+			var AddNewLine = function (){
+				colum = colum + 1
+				if (colum<6){
+				var item_count = document.getElementById('itemno');
+				item_count.value = colum
+				var table = document.getElementById('items');
+				var row = table.insertRow(2);
+				var col1 = row.insertCell(0);
+				col1.innerHTML = '<textarea id="description" placeholder="Type or click to select an item" class="ember-text-area form-control item-description ember-view" name="item_description"></textarea>';
+				var col2 = row.insertCell(1);
+				col2.innerHTML = '<textarea id="description" placeholder="Enter Typeof Account" class="ember-text-area form-control item-description ember-view" name="account_type"></textarea>';
+				var col3 = row.insertCell(2);
+				col3.innerHTML = '<input type="number" id="a" placeholder="Enter Quantity" class="ember-text-area form-control item-description ember-view" onchange="total()" name="quantity"></textarea>';
+				var col4 = row.insertCell(3);
+				col4.innerHTML = '<input type="number" id="s" placeholder="Enter Rate of Item" class="ember-text-area form-control item-description ember-view" onchange="total()" name="rate"></textarea>';
+				var col5 = row.insertCell(4);
+				col5.innerHTML = '<input type="number" id="k" placeholder="Total Amount of Items" class="ember-text-area form-control item-description ember-view" name="amount"></textarea>';
+			}}
+
+		</script>
+	</div>
+	{% endblock %}
+</body>
+</html>
