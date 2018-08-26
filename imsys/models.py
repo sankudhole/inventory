@@ -28,10 +28,6 @@ class Sales_Item(models.Model):
     rate = models.DecimalField(max_digits=5,decimal_places=2)
     amount = models.DecimalField(max_digits=5, decimal_places=2)
 
-    def save(self, *args, **kwarg):
-        self.amount = self.quantity * self.rate
-        return super(Sales_Item,self).save(*args,**kwarg)
-
 class Purchase_Order(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     vendor_name = models.CharField(max_length=200)
